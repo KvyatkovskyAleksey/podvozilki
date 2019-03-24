@@ -1,0 +1,63 @@
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+
+    	<a href="{{ url_for('trip.trip', trip_id=trip.id) }}">
+            <p><em>Откуда: <strong>{{ trip.trip_from }}</strong>.<br>
+            Куда: <strong>{{ trip.trip_to }}</strong><br>
+            Когда: <strong>{{ moment(trip.trip_time).format('D MMMM в HH:MM') }}</strong><br>
+            Свободных мест: <strong>{{ trip.free_seats }}</strong><br>
+            {{ moment(trip.trip_time).fromNow() }}</em></p>
+        </a>
+        </div>
+        <table class="table table-hover">
+    <thead class="thead-inverse">
+    	<tr class="info">
+    		<th width="250px">Водитель</th>
+    		<th width="500px">Пассажиры</th>
+            <th width="200px">Комментарий</th>
+		</tr>
+	</thead>
+    <tr> 
+        <td width="250px">
+            {% if trip.driver_id %}
+                <a href="{{ url_for('main.user', username=trip.driver.username) }}">
+                	<img src="{{ trip.driver.avatar(40) }}" /> 
+                </a>
+                <a href="{{ url_for('main.user', username=trip.driver.username) }}">
+                    {{ trip.driver.username }}
+                </a>
+            {% else %}
+                <a href="{{ url_for('trip.driver_join', trip_id=trip.id) }}">
+                    <img src="../static/searchcar.jpeg" width="40px" height="40px" /> 
+                </a>
+            {% endif %}
+        </td>
+        <td width="500px">
+        {% if trip.passengers %}
+        	
+                {% for passenger in trip.passengers %}    
+                        
+                                <a href="{{ url_for('main.user', username=passenger.username) }}">
+                                    <img src="{{ passenger.avatar(40) }}" /> 
+                                </a>
+                        		
+                                <a href="{{ url_for('main.user', username=passenger.username) }}">
+                                    {{ passenger.username }}
+                                </a>
+
+                {% endfor %}
+            
+        {% endif %}
+        {% for free_seats in range(trip.free_seats, 0 ,-1) %}
+            <a href="{{ url_for('trip.passenger_join', trip_id=trip.id) }}">
+                <img src="../static/free_seat.png" width="40px" height="40px" />
+            </a>
+        {% endfor %}
+</td>
+        {% if trip.comment %}
+            <td width="200px">{{ trip.comment }}</td>
+        {% endif %}
+    </tr>
+</table>
+</div>

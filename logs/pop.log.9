@@ -1,0 +1,77 @@
+2018-11-29 20:23:28,867 ERROR: Exception on /trip/explore [GET] [in /home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask/app.py:1761
+Traceback (most recent call last):
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/aleksey/Документы/project/app/trip/routes.py", line 44, in explore
+    next_url=next_url, prev_url=prev_url)
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask/templating.py", line 135, in render_template
+    context, ctx.app)
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask/templating.py", line 117, in _render
+    rv = template.render(context)
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/jinja2/asyncsupport.py", line 76, in render
+    return original_render(self, *args, **kwargs)
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/jinja2/environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/jinja2/environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/jinja2/_compat.py", line 37, in reraise
+    raise value.with_traceback(tb)
+  File "/home/aleksey/Документы/project/app/trip/templates/trip/index.html", line 2, in top-level template code
+    {% import 'bootstrap/wtf.html' as wtf %}
+  File "/home/aleksey/Документы/project/app/templates/base.html", line 1, in top-level template code
+    {% extends 'bootstrap/base.html' %}
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 4, in block "doc"
+    {%- block html %}
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 20, in block "html"
+    {% block body -%}
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask_bootstrap/templates/bootstrap/base.html", line 23, in block "body"
+    {% block content -%}
+  File "/home/aleksey/Документы/project/app/templates/base.html", line 49, in block "content"
+    {% block app_content %}{% endblock %}
+  File "/home/aleksey/Документы/project/app/trip/templates/trip/index.html", line 11, in block "app_content"
+    {% include 'trip/_trip.html' %}
+  File "/home/aleksey/Документы/project/app/trip/templates/trip/_trip.html", line 5, in top-level template code
+    < img src="{{ trip.avatar(trip.rider) }}" />
+jinja2.exceptions.UndefinedError: 'app.models.Trip object' has no attribute 'avatar'
+2018-11-29 20:23:52,890 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:60
+2018-12-01 20:02:27,919 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:60
+2018-12-01 21:13:54,465 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:60
+2018-12-01 21:14:03,521 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:60
+2018-12-01 21:32:00,491 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:60
+2018-12-01 21:32:32,087 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:60
+2018-12-01 21:32:39,467 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:60
+2018-12-01 21:32:55,333 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:60
+2018-12-01 21:33:39,514 ERROR: Exception on /trip/make_trip [POST] [in /home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask/app.py:1761
+Traceback (most recent call last):
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/aleksey/pythonvenv/flask-env/lib/python3.6/site-packages/flask_login/utils.py", line 261, in decorated_view
+    return func(*args, **kwargs)
+  File "/home/aleksey/Документы/project/app/trip/routes.py", line 17, in make_trip
+    if form.validate_on_submit() and trip.driver_here == False:
+UnboundLocalError: local variable 'trip' referenced before assignment
+2018-12-02 01:47:00,713 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:60

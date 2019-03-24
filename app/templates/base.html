@@ -1,0 +1,149 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block html_attribs %} lang="ru"{% endblock %}
+
+{% block title %}
+    {% if title %}{{ title }} - Подвозилки{% else %}Добро пожаловать!{% endif %}
+{% endblock %}
+
+
+{% block head %}
+{{super()}}
+<link rel="manifest" href="../static/manifest.json">
+<link rel="shortcut icon" href="../static/logo.png" type="image/png">
+<link rel="apple-touch-icon" sizes="57x57" href="../static/icons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../static/icons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../static/icons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../static/icons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../static/icons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../static/icons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../static/icons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../static/icons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../static/icons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../static/icons/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../static/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../static/icons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../static/icons/favicon-16x16.png">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="../static/icons/ms-icon-144x144.png">
+<meta name="theme-color" content="#4682B4">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="application-name" content="Подвозилки">
+<meta name="apple-mobile-web-app-title" content="Подвозилки">
+<meta name="theme-color" content="#4682B4">
+<meta name="msapplication-navbutton-color" content="#4682B4">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="msapplication-starturl" content="/">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="Description" content="Подвозилки - сайт для тех, кто ищет попутчиков. Даёт возможность найти водителя, пассажиров или вызвать такси.">
+<meta name="google-site-verification" content="UXqGDxBr82-VxHoV4JIaBUiDYPf3DxbH_ejL3Yzrpnw" />
+{% endblock %}
+
+{% block styles -%}
+{{super()}}
+{% endblock styles %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-left" align="left" href="{{ url_for('main.index') }}"><sub>  
+                    <img src="../static/logo.png" alt=""></sub>
+                </a>
+                {% if not current_user.is_anonymous %}
+                    {% set new_notifications = current_user.new_notifications() %}
+                        <a href="{{ url_for('main.notifications') }}">
+                            <span id ="notification_count" class="badge glyphicon glyphicon-bell" aria-hidden="true"
+                                    style = "visibility: {% if new_notifications %} visible
+                                    	  				{% else %} hidden {% endif %};">
+                                    	  	{{ new_notifications }}
+                            </span>
+                        </a>
+                {% endif %}
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('trip.make_trip') }}">Создать поездку</a></li>
+                    <li><a href="{{ url_for('trip.trip_filter') }}">Найти поездку</a></li>
+                    <li><a href="{{ url_for('trip.my_trips') }}">Мои поездки</a></li>
+                    <li><a href="{{ url_for('trip.explore') }}">Обзор</a></li>
+                    <li><a href="{{ url_for('main.options') }}">Настройки</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if current_user.is_anonymous %}
+                    <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                    {% else %}
+                    <li>
+                        <a href="{{ url_for('main.notifications') }}">
+                            Уведомления
+                            {% set new_notifications = current_user.new_notifications() %}
+                            <span id ="notification_count" class="badge"
+                            	  style = "visibility: {% if new_notifications %} visible
+                            	  					   {% else %} hidden {% endif %};">
+                            	  	{{ new_notifications }}
+                            </span>
+                        </a>
+                    </li>
+                    <li><a href="{{ url_for('main.user', username=current_user.username) }}">Профиль</a></li>
+                    <li><a href="{{ url_for('main.feedback') }}">Обратная связь</a></li>
+                    <li><a href="{{ url_for('auth.logout') }}">Выйти</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info" role="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {# application content needs to be provided in the app_content block #}
+        {% block app_content %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}       
+    {{ moment.include_moment() }}
+    {{ moment.lang('ru') }}
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
+    <script>
+    	var podvozilki = "../static/podvozilki.js";
+        $.getScript(podvozilki);
+        function set_notification_count(n) {
+            $('#notification_count').text(n);
+            $('#notification_count').css('visibility', n ? 'visible' : 'hidden');
+        }
+
+        {% if current_user.is_authenticated %}
+        $(function() {
+        	var since = 0;
+        	setInterval(function() {
+        		$.ajax('{{ url_for('main.notices') }}?since=' + since).done(
+        			function(notices) {
+        				for (var i=0; i < notices.length; i++) {
+        					if (notices[i].name == 'unread_notification_count')
+        						set_notification_count(notices[i].data);
+        					since = notices[i].timestamp;
+        				}
+        			}
+        		);
+        	}, 10000);
+        });
+        {% endif %}
+    </script>
+{% endblock %}

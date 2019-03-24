@@ -1,0 +1,42 @@
+2019-02-01 21:03:00,793 ERROR: Exception on /auth/register [POST] [in /home/ubuntu/venv/lib/python3.6/site-packages/flask/app.py:1761
+Traceback (most recent call last):
+  File "/home/ubuntu/venv/lib/python3.6/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/ubuntu/venv/lib/python3.6/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/ubuntu/venv/lib/python3.6/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/home/ubuntu/venv/lib/python3.6/site-packages/flask/_compat.py", line 35, in reraise
+    raise value
+  File "/home/ubuntu/venv/lib/python3.6/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/ubuntu/venv/lib/python3.6/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ubuntu/pop/app/auth/routes.py", line 38, in register
+    if form.validate_on_submit():
+  File "/home/ubuntu/venv/lib/python3.6/site-packages/flask_wtf/form.py", line 101, in validate_on_submit
+    return self.is_submitted() and self.validate()
+  File "/home/ubuntu/venv/lib/python3.6/site-packages/wtforms/form.py", line 310, in validate
+    return super(Form, self).validate(extra)
+  File "/home/ubuntu/venv/lib/python3.6/site-packages/wtforms/form.py", line 152, in validate
+    if not field.validate(self, extra):
+  File "/home/ubuntu/venv/lib/python3.6/site-packages/wtforms/fields/core.py", line 206, in validate
+    stop_validation = self._run_validation_chain(form, chain)
+  File "/home/ubuntu/venv/lib/python3.6/site-packages/wtforms/fields/core.py", line 226, in _run_validation_chain
+    validator(form, self)
+  File "/home/ubuntu/pop/app/auth/forms.py", line 24, in validate_username
+    raise ValidationError('Пожалуйста, используйте другое имя.')
+NameError: name 'ValidationError' is not defined
+2019-02-01 21:04:36,370 INFO: pop startup [in /home/ubuntu/pop/app/__init__.py:62
+2019-02-01 21:04:36,368 INFO: pop startup [in /home/ubuntu/pop/app/__init__.py:62
+2019-02-01 21:04:36,369 INFO: pop startup [in /home/ubuntu/pop/app/__init__.py:62
+2019-02-01 21:04:36,372 INFO: pop startup [in /home/ubuntu/pop/app/__init__.py:62
+2019-02-06 19:23:09,542 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:61
+2019-02-06 19:29:56,155 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:61
+2019-02-06 19:29:56,632 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:61
+2019-02-06 19:30:09,395 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:61
+2019-02-06 19:32:43,651 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:61
+2019-02-06 19:33:00,883 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:61
+2019-02-06 19:33:01,026 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:61
+2019-02-06 19:34:07,484 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:61
+2019-02-06 19:34:21,747 INFO: pop startup [in /home/aleksey/Документы/project/app/__init__.py:61

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+    <h3><p><em>Откуда: <strong>{{ trip.trip_from }}</strong>.<br>
+            Куда: <strong>{{ trip.trip_to }}</strong><br>
+            Когда: <strong>{{ moment(trip.trip_time).format('LLL') }}</strong><br>
+            Свободных мест: <strong>{{ trip.free_seats }}</strong><br>
+            {{ moment(trip.trip_time).fromNow() }}</em></p>
+    </h3>
+    <table class="table table-hover">
+    <thead class="thead-inverse">
+    	<tr class="info">
+    		<th width="250px">Водитель</th>
+    		<th width="500px">Пассажиры</th>
+            <th width="200px">Комментарий</th>
+		</tr>
+	</thead>
+    <tr> 
+        <td width="250px">
+            {% if trip.driver_id %}
+                <a href="{{ url_for('main.user', username=trip.driver.username) }}">
+                	<img src="{{ trip.driver.avatar(40) }}" /> 
+                </a>
+                <a href="{{ url_for('main.user', username=trip.driver.username) }}">
+                    {{ trip.driver.username }}
+                </a>
+            {% else %}
+                <a href="{{ url_for('trip.driver_join', trip_id=trip.id) }}">
+                    <img src="../static/searchcar.jpeg" width="40px" height="40px" /> 
+                </a>
+            {% endif %}
+        </td>
+        <td width="500px">
+        {% if trip.passengers %}
+        	
+                {% for passenger in trip.passengers %}    
+                        
+                                <a href="{{ url_for('main.user', username=passenger.username) }}">
+                                    <img src="{{ passenger.avatar(40) }}" /> 
+                                </a>
+                        		
+                                <a href="{{ url_for('main.user', username=passenger.username) }}">
+                                    {{ passenger.username }}
+                                </a>
+
+                {% endfor %}
+            
+        {% endif %}
+        {% for free_seats in range(trip.free_seats, 0 ,-1) %}
+            <a href="{{ url_for('trip.passenger_join', trip_id=trip.id) }}">
+                <img src="../static/free_seat.png" width="40px" height="40px" />
+            </a>
+        {% endfor %}
+</td>
+        {% if trip.comment %}
+            <td width="200px">{{ trip.comment }}</td>
+        {% endif %}
+    </tr>
+</table>
+    {% if not trip.driver_id and not user.joined_as_passenger(trip) %}
+	    {% if not user.joined_as_driver(trip) %}
+	    	<a href="{{ url_for('trip.driver_join', trip_id=trip.id) }}">Присоединиться как водитель</a>
+	    {% endif %}
+    {% endif %}
+    {% if trip.free_seats > 0 %}
+    	{% if not user.joined_as_passenger(trip) and not user.joined_as_driver(trip) %}
+    		<a href="{{ url_for('trip.passenger_join', trip_id=trip.id) }}">Присоединиться как пассажир</a>
+    	{% endif %}
+    {% endif %}
+    {% if user.joined_as_passenger(trip) %}
+    	<a href="{{ url_for('trip.passenger_leave', trip_id=trip.id) }}">Покинуть поездку</a>
+    {% elif user.joined_as_driver(trip) %}
+    	<a href="{{ url_for('trip.driver_leave', trip_id=trip.id) }}">Покинуть поездку</a>
+    {% endif %}
+    {% if trip.driver_id==current_user.id %}
+    <div class="container" id="post">
+        <div class="row">
+            <div class="col-md-4">
+                {{ wtf.quick_form(count_form) }}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if user.joined_as_passenger(trip) or user.joined_as_driver(trip) %}
+    <div class="container" id="post">
+        <h4>Написать сообщение</h4>
+        <div class="row">
+            <div class="col-md-4">
+                {{ wtf.quick_form(form) }}
+            </div>
+        </div>
+    </div>
+        {% for post in posts %}
+            {% include '_post.html' %}
+        {% endfor %}
+    <nav aria-label="...">
+        <ul class="pager">
+            <li class="previous{% if not prev_url %} disabled{% endif %}">
+                <a href="{{ prev_url or '#' }}">
+                    <span aria-hidden="true">&larr;</span> Новые
+                </a>
+            </li>
+            <li class="next{% if not next_url %} disabled{% endif %}">
+                <a href="{{ next_url or '#' }}">
+                    Старые <span aria-hidden="true">&rarr;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    {% endif %}
+{% endblock %}
